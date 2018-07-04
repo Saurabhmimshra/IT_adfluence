@@ -6,5 +6,9 @@
 	  $data = htmlspecialchars($data);
 	  return $data;
 	}
-	
+
+	function send_response(){
+		echo 'reskfjasljkf';
+	}
+
 ?>
