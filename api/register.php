@@ -22,8 +22,8 @@
 			}
 
 			$file_new_name = uniqid().".jpg";
-			// $destination_path = getcwd().DIRECTORY_SEPARATOR;
-			if (!move_uploaded_file($file_tmp_loc, $destination_path.$file_new_name)) {
+			$destination_path = getcwd().DIRECTORY_SEPARATOR;
+			if (!move_uploaded_file($file_tmp_loc, $destination_path."uploads/".$file_new_name)) {
 				die('Cannot move the file.');
 			}
 
