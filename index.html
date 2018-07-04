@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>My Site</h1>
+	<h2>Register</h2>
+	<form name="reg_form" enctype="multipart/form-data">
+		<label>Name:</label>
+		<input type="text" name="name"><br>
+		<label>Email:</label>
+		<input type="email" name="email"><br>
+		<label>Profile Picture:</label>
+		<input type="file" name="pro_pic"><br>
+		<label>Password:</label>
+		<input type="password" name="pswrd"><br>
+		<input type="button" id="reg_btn"  value="Register">
+	</form>
+
+	<script type="text/javascript">
+
+	
+
+	    function ValidateFileUpload() {
+	        var fuData = document.forms.reg_form.pro_pic;
+	        var FileUploadPath = fuData.value;
+	        ;
+
+			//To check if user upload any file
+       		if (FileUploadPath == '') {
+	            alert("Please upload an image");
+
+	        } else {
+	            var Extension = FileUploadPath.substring(
+                FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                var size = fuData.files[0].size
+
+				//The file uploaded is an image
+
+				if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+			                    || Extension == "jpeg" || Extension == "jpg" ) {
+					if(size >= 20000 && size <= 2000000 )
+						return true;
+					else
+						alert("Image size must be between 20 KB to 2MB");
+				} else {
+			        alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+
+			    }
+			}
+			return false;
+		}
+
+		            
+
+            
+
+		document.getElementById("reg_btn").addEventListener("click", function(){
+	        
+	        var xmlhttp = new XMLHttpRequest();
+
+	        xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    alert(xmlhttp.responseText);
+                }
+            }
+
+            var fd = new FormData();
+
+            console.log("hello");
+            var form = document.forms.reg_form;
+
+            fd.append("name", form.name.value);
+            fd.append("email", form.email.value);
+            fd.append("profile_pic", form.pro_pic.files[0]);
+            fd.append("password", form.pswrd.value);
+
+            if(ValidateFileUpload()){
+            	xmlhttp.open("POST", './api/register.php', true);
+            	xmlhttp.send(fd);
+            }
+            
+        
+
+		});
+	</script>
+
+</body>
+</html>
